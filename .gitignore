@@ -67,9 +67,9 @@ Build/*/**
 Saved/*
 
 # Compiled source files for the engine to use
-Intermediate/*
+TopDownShmup/Intermediate/*
 Plugins/*/Intermediate/*
 
 # Cache files for the editor to use
 DerivedDataCache/*
-content/startercontent/*
+TopDownShmup/content/startercontent/*
