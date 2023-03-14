@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <None Include="..\..\TopDownShmup.uproject" />
+    <Filter Include="Source">
+      <UniqueIdentifier>{F31BBDD1-B3E8-3BCC-9652-680E16935819}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\TopDownShmup.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <None Include="..\..\Source\TopDownShmupEditor.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <Filter Include="Config">
+      <UniqueIdentifier>{FA535FFB-25E1-3D20-B416-52F9BE21E06E}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Config\DefaultEditor.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultEditorPerProjectUserSettings.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultEngine.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultGame.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultInput.ini">
+      <Filter>Config</Filter>
+    </None>
+    <Filter Include="Config\HoloLens">
+      <UniqueIdentifier>{4C8DD267-CDE7-336F-8602-F5F485D22BAB}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Config\HoloLens\HoloLensEngine.ini">
+      <Filter>Config\HoloLens</Filter>
+    </None>
+    <Filter Include="Source\TopDownShmup">
+      <UniqueIdentifier>{EC1B3F59-428C-36C7-BA0E-5248DAAFB716}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\TopDownShmup\AssaultWeapon.cpp">
+      <Filter>Source\TopDownShmup</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\TopDownShmup\AssaultWeapon.h">
+      <Filter>Source\TopDownShmup</Filter>
+    </ClInclude>
+    <None Include="..\..\Source\TopDownShmup\TopDownShmup.Build.cs">
+      <Filter>Source\TopDownShmup</Filter>
+    </None>
+    <ClCompile Include="..\..\Source\TopDownShmup\TopDownShmup.cpp">
+      <Filter>Source\TopDownShmup</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\TopDownShmup\TopDownShmup.h">
+      <Filter>Source\TopDownShmup</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\TopDownShmup\TopDownShmupCharacter.cpp">
+      <Filter>Source\TopDownShmup</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\TopDownShmup\TopDownShmupCharacter.h">
+      <Filter>Source\TopDownShmup</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\TopDownShmup\TopDownShmupGameMode.cpp">
+      <Filter>Source\TopDownShmup</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\TopDownShmup\TopDownShmupGameMode.h">
+      <Filter>Source\TopDownShmup</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\TopDownShmup\TopDownShmupPlayerController.cpp">
+      <Filter>Source\TopDownShmup</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\TopDownShmup\TopDownShmupPlayerController.h">
+      <Filter>Source\TopDownShmup</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\TopDownShmup\Weapon.cpp">
+      <Filter>Source\TopDownShmup</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\TopDownShmup\Weapon.h">
+      <Filter>Source\TopDownShmup</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
