@@ -34,6 +34,8 @@ public:
 	virtual void OnStartFire();
 	virtual void OnStopFire();
 
+	class APawn* MyPawn;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Weapon.h"
+#include "DwarfCharacter.h"
 #include "AssaultWeapon.generated.h"
 
 /**
@@ -14,8 +15,23 @@ class TOPDOWNSHMUP_API AAssaultWeapon : public AWeapon
 {
 	GENERATED_BODY()
 
+		UPROPERTY(EditDefaultsOnly)
+		class UParticleSystem* HitEffect;
+
+protected:
+	void WeaponTrace();
+
 
 public:
+	AAssaultWeapon();
+
+	UPROPERTY(EditAnywhere, Category = "Damage")
+		float DamageAmount;
+
+	FTimerHandle TimerHandle_WeaponTrace;
+
+	float FireRate;
+	float WeaponRange;
 
 	virtual void OnStartFire() override;
 	virtual void OnStopFire() override;

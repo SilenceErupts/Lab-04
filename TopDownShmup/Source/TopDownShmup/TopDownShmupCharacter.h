@@ -24,8 +24,12 @@ protected:
 public:
 	ATopDownShmupCharacter();
 
+
 	UPROPERTY(EditAnywhere, Category = Weapon)
 	TSubclassOf<AWeapon>WeaponClass;
+
+	UPROPERTY(EditAnywhere, Category = "Health")
+		float HealthPoints;
 
 	/** Returns TopDownCameraComponent subobject **/
 	FORCEINLINE class UCameraComponent* GetTopDownCameraComponent() const { return TopDownCameraComponent; }
