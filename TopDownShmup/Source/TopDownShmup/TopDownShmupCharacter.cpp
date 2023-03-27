@@ -39,6 +39,14 @@ void ATopDownShmupCharacter::BeginPlay()
 {
 	// Call base class BeginPlay
 	Super::BeginPlay();
+
+	int HealthInt = static_cast<int>(HealthPoints);
+	if (GEngine)
+	{
+
+		// add the message to the ScreenMessages system
+		GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Blue, FString::Printf(TEXT("Player Health: %i"), HealthInt));
+	}
 	// Spawn the weapon, if one was specified
 	if (WeaponClass)
 	{
@@ -65,6 +73,12 @@ void ATopDownShmupCharacter::BeginPlay()
 	}
 }
 
+void ATopDownShmupCharacter::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+
+}
+
 void ATopDownShmupCharacter::OnStartFire()
 {
 	if (MyWeapon)
@@ -79,4 +93,55 @@ void ATopDownShmupCharacter::OnStopFire()
 	{
 		MyWeapon->OnStopFire();
 	}
+}
+
+float ATopDownShmupCharacter::TakeDamage(float Damage, struct FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
+{
+	float ActualDamage = Super::TakeDamage(Damage, DamageEvent, EventInstigator, DamageCauser);
+	if (ActualDamage > 0.0f)
+	{
+		//TODO: Add a debug message on screen to know player got hit
+		if (GEngine)
+		{
+			GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, FString::Printf(TEXT("Player has been hit")));
+		}
+		//Reduce health points
+		HealthPoints -= ActualDamage;
+		int HealthInt = static_cast<int>(HealthPoints);
+		if (GEngine)
+		{
+
+			// add the message to the ScreenMessages system
+			GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Blue, FString::Printf(TEXT("Player Health: %i"), HealthInt));
+		}
+		if (HealthPoints <= 0.0f)
+		{
+			// We're dead
+			bIsDead = true;
+			// Get the player controller and ignore look and move input
+			APlayerController* PlayerController = Cast<APlayerController>(GetController());
+			if (PlayerController)
+			{
+				MyWeapon->OnStopFire();
+				PlayerController->SetIgnoreLookInput(true);
+				PlayerController->SetIgnoreMoveInput(true);
+			}
+			//Play Death animation
+			DeathDuration = PlayAnimMontage(DeathAnim);
+			// Deactivate animation for the player
+			GetWorldTimerManager().SetTimer(DeathTimerHandle, this, &ATopDownShmupCharacter::DeactivateAfterDeath, DeathDuration - 0.25f, true);
+		}
+	}
+	return ActualDamage;
+
+}
+
+bool ATopDownShmupCharacter::IsDead()
+{
+	return bIsDead;
+}
+
+void ATopDownShmupCharacter::DeactivateAfterDeath()
+{
+	GetMesh()->Deactivate();
 }

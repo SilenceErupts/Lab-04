@@ -13,13 +13,18 @@ ADwarfCharacter::ADwarfCharacter()
 
 void ADwarfCharacter::StartAttack()
 {
-	PlayAnimMontage(AttackAnim);
+	AttackDuration = PlayAnimMontage(AttackAnim);
+	//ATopDownShmupCharacter* PlayerCharacter = Cast<ATopDownShmupCharacter>(UGameplayStatics::GetPlayerPawn(this, 0));
+
+	GetWorldTimerManager().SetTimer(AttackTimerHandle, this, &ADwarfCharacter::ApplyDamage, AttackDuration, true);
 }
 
 void ADwarfCharacter::StopAttack()
 {
 	StopAnimMontage();
+	GetWorldTimerManager().ClearTimer(AttackTimerHandle);
 }
+
 
 float ADwarfCharacter::TakeDamage(float Damage, struct FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
 {
@@ -46,10 +51,31 @@ float ADwarfCharacter::TakeDamage(float Damage, struct FDamageEvent const& Damag
 			{
 				Controller->UnPossess();
 			}
+			//Play Death animation
+			DeathDuration = PlayAnimMontage(DeathAnim);
 			// Remove the dwarf from the world
-			Destroy();
+			//Destroy();
+			GetWorldTimerManager().SetTimer(DeathTimerHandle, this, &ADwarfCharacter::DestroyAfterDeath, DeathDuration-0.25f, true);
+			//this->RemoveFromRoot();
 		}
 	}
 	return ActualDamage;
 
+}
+
+void ADwarfCharacter::ApplyDamage()
+{
+	// Get the player's pawn
+	APawn* PlayerPawn = UGameplayStatics::GetPlayerPawn(this, 0);
+
+	if (PlayerPawn)
+	{
+		// Apply damage to the player's pawn
+		PlayerPawn->TakeDamage(Damage, FDamageEvent(), GetController(), this);
+	}
+}
+
+void ADwarfCharacter::DestroyAfterDeath()
+{
+	Destroy();
 }

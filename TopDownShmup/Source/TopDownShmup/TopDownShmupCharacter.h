@@ -1,6 +1,7 @@
 // Copyright 1998-2015 Epic Games, Inc. All Rights Reserved.
 #pragma once
 #include "GameFramework/Character.h"
+#include <string>
 #include "Weapon.h"
 #include "TopDownShmupCharacter.generated.h"
 
@@ -17,13 +18,25 @@ class ATopDownShmupCharacter : public ACharacter
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	class USpringArmComponent* CameraBoom;
 
+	UPROPERTY(EditDefaultsOnly)
+		UAnimMontage* DeathAnim;
+
+
+
 protected:
 	virtual void BeginPlay() override;
 
 
 public:
-	ATopDownShmupCharacter();
 
+	bool bIsDead;
+	bool IsDead();
+	void DeactivateAfterDeath();
+
+	FTimerHandle DeathTimerHandle;
+	float DeathDuration;
+
+	ATopDownShmupCharacter();
 
 	UPROPERTY(EditAnywhere, Category = Weapon)
 	TSubclassOf<AWeapon>WeaponClass;
@@ -38,6 +51,11 @@ public:
 
 	virtual void OnStartFire();
 	virtual void OnStopFire();
+
+
+	virtual void Tick(float DeltaTime) override;
+
+	float TakeDamage(float Damage, struct FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
 
 private:
 	AWeapon* MyWeapon;

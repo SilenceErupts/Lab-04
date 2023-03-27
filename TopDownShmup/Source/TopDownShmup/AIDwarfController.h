@@ -27,8 +27,6 @@ public:
 	APawn* PlayerActor;
 	ADwarfCharacter* MyDwarf;
 
-	bool PlayerIsDead() const;
-
 	EDwarfState GetCurrentState() const;
 	void SetCurrentState(EDwarfState NewState);
 

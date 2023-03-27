@@ -10,6 +10,7 @@ void AAIDwarfController::OnPossess(APawn* InPawn)
 	Super::OnPossess(InPawn);
 	MyPawn = InPawn;
 	MyDwarf = Cast<ADwarfCharacter>(MyPawn);
+	SetCurrentState(EDwarfState::EStart);
 }
 
 void AAIDwarfController::BeginPlay()
@@ -23,6 +24,24 @@ void AAIDwarfController::BeginPlay()
 void AAIDwarfController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	ATopDownShmupCharacter* Player = Cast<ATopDownShmupCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
+
+	/*if (GetCurrentState() == EDwarfState::EChasing && Player->IsDead())
+	{
+		SetCurrentState(EDwarfState::EStart);
+	}*/
+	if (Player->IsDead())
+	{
+		if (GetCurrentState() == EDwarfState::EAttacking)
+		{
+			MyDwarf->StopAttack();
+			SetCurrentState(EDwarfState::EUnknown);
+		}
+		StopMovement();
+		return;
+	}
+	
 	if (GetCurrentState() == EDwarfState::EStart)
 	{
 		SetCurrentState(EDwarfState::EChasing);
@@ -32,6 +51,7 @@ void AAIDwarfController::Tick(float DeltaTime)
 	{
 		SetCurrentState(EDwarfState::EChasing);
 	}
+
 }
 
 void AAIDwarfController::OnMoveCompleted(FAIRequestID RequestID, EPathFollowingResult::Type Result)

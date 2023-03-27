@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "EnemyCharacter.h"
+#include "TopDownShmupCharacter.h"
 #include "DwarfCharacter.generated.h"
 
 /**
@@ -16,9 +17,17 @@ class TOPDOWNSHMUP_API ADwarfCharacter : public AEnemyCharacter
 
 		UPROPERTY(EditDefaultsOnly)
 		UAnimMontage* AttackAnim;
+
+	UPROPERTY(EditDefaultsOnly)
+		UAnimMontage* DeathAnim;
 	
 public:
 
+	FTimerHandle AttackTimerHandle;
+	float AttackDuration;
+
+	FTimerHandle DeathTimerHandle;
+	float DeathDuration;
 
 	UPROPERTY(EditAnywhere, Category = "Health")
 		float Health;
@@ -26,11 +35,11 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Health")
 		float Damage;
 
-	float AttackDuration;
-
 	ADwarfCharacter();
 	void StartAttack();
 	void StopAttack();
+	void ApplyDamage();
+	void DestroyAfterDeath();
 
 	float TakeDamage(float Damage, struct FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
 	

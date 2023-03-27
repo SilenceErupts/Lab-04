@@ -121,7 +121,18 @@ void ATopDownShmupPlayerController::MoveRight(float Value)
 
 void ATopDownShmupPlayerController::UpdateMouseLook()
 {
+	// Get a reference to the player controller
+	APlayerController* PlayerController = GetWorld()->GetFirstPlayerController();
+
+	// Check if look input is ignored
+	if (PlayerController && PlayerController->IsLookInputIgnored())
+	{
+		return;
+	}
+	
+
 	APawn* Pawn = GetPawn();
+	
 
 	FHitResult Hit;
 	GetHitResultUnderCursor(ECC_Visibility, false, Hit);
@@ -136,12 +147,14 @@ void ATopDownShmupPlayerController::UpdateMouseLook()
 		Pawn->SetActorRotation(Rotator);
 	}
 
+	
 }
 
 void ATopDownShmupPlayerController::OnStartFire()
 {
 	APawn* const Pawn = GetPawn();
 	ATopDownShmupCharacter *MyCharacter = Cast<ATopDownShmupCharacter>(Pawn);
+	if (MyCharacter->IsDead()) { return; }
 	if (MyCharacter)
 	{
 		MyCharacter->OnStartFire();
@@ -152,6 +165,7 @@ void ATopDownShmupPlayerController::OnStopFire()
 {
 	APawn* const Pawn = GetPawn();
 	ATopDownShmupCharacter *MyCharacter = Cast<ATopDownShmupCharacter>(Pawn);
+	if (MyCharacter->IsDead()) { return; }
 	if (MyCharacter)
 	{
 		MyCharacter->OnStopFire();
