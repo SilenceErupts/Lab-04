@@ -114,3 +114,9 @@ void AAIDwarfController::HandleNewState(EDwarfState NewState)
 			break;
 	}
 }
+
+void AAIDwarfController::OnUnPossess()
+{
+	Super::OnUnPossess();
+	SetActorTickEnabled(false);
+}

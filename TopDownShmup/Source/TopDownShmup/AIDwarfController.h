@@ -38,6 +38,7 @@ protected:
 	virtual void BeginPlay() override;
 	virtual void OnMoveCompleted(FAIRequestID RequestID, EPathFollowingResult::Type Result) override;
 	virtual void Tick(float DeltaTime) override;
+	virtual void OnUnPossess() override;
 
 
 private:
