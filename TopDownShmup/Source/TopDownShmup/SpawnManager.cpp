@@ -17,6 +17,7 @@ ASpawnManager::ASpawnManager()
 void ASpawnManager::BeginPlay()
 {
 	Super::BeginPlay();
+    Player = Cast<ATopDownShmupCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
 
 	GetWorldTimerManager().SetTimer(SpawnTimerHandle, this, &ASpawnManager::Spawn, FMath::RandRange(minSpawnTime, maxSpawnTime), true);
 	
@@ -46,7 +47,10 @@ void ASpawnManager::SpawnDwarf()
         CurrentDwarf->SpawnDefaultController();
     }
     GetWorldTimerManager().ClearTimer(SpawnTimerHandle);
-    GetWorldTimerManager().SetTimer(SpawnTimerHandle, this, &ASpawnManager::Spawn, FMath::RandRange(minSpawnTime, maxSpawnTime), true);
+    if (!Player->IsDead())
+    {
+        GetWorldTimerManager().SetTimer(SpawnTimerHandle, this, &ASpawnManager::Spawn, FMath::RandRange(minSpawnTime, maxSpawnTime), true);
+    }
 }
 
 void ASpawnManager::Spawn_Implementation()

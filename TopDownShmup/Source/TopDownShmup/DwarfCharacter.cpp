@@ -7,8 +7,8 @@
 ADwarfCharacter::ADwarfCharacter()
 {
 	AIControllerClass = AAIDwarfController::StaticClass();
-	Health = 20.f;
-	Damage = 10.f;
+	Health = 40.f;
+	Damage = 20.f;
 }
 
 void ADwarfCharacter::StartAttack()
@@ -16,7 +16,7 @@ void ADwarfCharacter::StartAttack()
 	AttackDuration = PlayAnimMontage(AttackAnim);
 	//ATopDownShmupCharacter* PlayerCharacter = Cast<ATopDownShmupCharacter>(UGameplayStatics::GetPlayerPawn(this, 0));
 
-	GetWorldTimerManager().SetTimer(AttackTimerHandle, this, &ADwarfCharacter::ApplyDamage, AttackDuration, true);
+	GetWorldTimerManager().SetTimer(AttackTimerHandle, this, &ADwarfCharacter::ApplyDamage, AttackDuration-.1f, true);
 }
 
 void ADwarfCharacter::StopAttack()
@@ -32,10 +32,10 @@ float ADwarfCharacter::TakeDamage(float Damage, struct FDamageEvent const& Damag
 	if (ActualDamage > 0.0f)
 	{
 		//TODO: Add a debug message on screen to know dwarf got hit
-		if (GEngine)
+		/*if (GEngine)
 		{
 			GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Green, FString::Printf(TEXT("Dwarf has been hit")));
-		}
+		}*/
 		//Reduce health points
 		Health -= ActualDamage;
 		if (Health <= 0.0f)
@@ -56,7 +56,7 @@ float ADwarfCharacter::TakeDamage(float Damage, struct FDamageEvent const& Damag
 			// Remove the dwarf from the world
 			//Destroy();
 			GetWorldTimerManager().SetTimer(DeathTimerHandle, this, &ADwarfCharacter::DestroyAfterDeath, DeathDuration-0.25f, true);
-			//this->RemoveFromRoot();
+			
 		}
 	}
 	return ActualDamage;

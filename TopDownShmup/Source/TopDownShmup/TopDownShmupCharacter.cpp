@@ -101,10 +101,10 @@ float ATopDownShmupCharacter::TakeDamage(float Damage, struct FDamageEvent const
 	if (ActualDamage > 0.0f)
 	{
 		//TODO: Add a debug message on screen to know player got hit
-		if (GEngine)
+		/*if (GEngine)
 		{
 			GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, FString::Printf(TEXT("Player has been hit")));
-		}
+		}*/
 		//Reduce health points
 		HealthPoints -= ActualDamage;
 		int HealthInt = static_cast<int>(HealthPoints);

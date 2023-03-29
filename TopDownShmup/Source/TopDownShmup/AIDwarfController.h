@@ -33,6 +33,7 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Dwarf Range")
 		float DwarfRange = 150.0f;
 
+
 protected:
 	virtual void OnPossess(APawn* InPawn) override;
 	virtual void BeginPlay() override;

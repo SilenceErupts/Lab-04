@@ -119,4 +119,5 @@ void AAIDwarfController::OnUnPossess()
 {
 	Super::OnUnPossess();
 	SetActorTickEnabled(false);
+	this->Destroy();
 }

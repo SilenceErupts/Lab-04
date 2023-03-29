@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "Engine/TargetPoint.h"
+#include "TopDownShmupCharacter.h"
 #include "DwarfCharacter.h"
 #include "SpawnManager.generated.h"
 
@@ -44,5 +45,7 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+	ATopDownShmupCharacter* Player;
 
 };
